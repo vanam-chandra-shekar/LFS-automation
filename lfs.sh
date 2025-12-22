@@ -14,6 +14,12 @@ if ! grep -q "$LFS" /proc/mounts; then
     source ./setupdisk.sh 
     sudo mkdir -vp "$LFS"
     sudo mount "${LFS_DISK}p2" "${LFS}"
-    sudo chown -v $USER "$LFS"
+    sudo chown $USER $LFS
 fi
 
+
+mkdir -vp $LFS/sources
+sudo chmod -v a+wt $LFS/sources
+
+
+source ./download.sh 
