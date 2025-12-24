@@ -1,4 +1,6 @@
 
+FAILED=0
+
 {
     read
     while IFS=, read -r FILENAME VERSION MD5 URL; do
@@ -17,7 +19,11 @@
         fi
 
         echo "Downloading $LINK"
-        wget -P "$LFS/sources" "$LINK" || exit 1
+        if ! wget -P "$LFS/sources" "$LINK"; then
+            echo "Download Failed: $DEST - skipping"
+            ((FAILED+=1))
+            continue
+        fi
         
         if ! echo "$MD5 $DEST" | md5sum -c -; then
             echo "MD5 mismatch for $FILE - deleting"
@@ -28,3 +34,9 @@
         
     done
 } < packages.csv 
+
+
+if [[ $FAILED -ne 0 ]]; then
+    "All Packages Not Installed Quitting"
+    exit 1
+fi
