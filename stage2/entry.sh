@@ -23,3 +23,6 @@ if [[ "$(id -un)" != "$USR" ]]; then
 fi
 
 
+source $PARENT_DIR/packageinstall.sh 0 binutils 
+
+

@@ -25,5 +25,6 @@ export LFS LC_ALL LFS_TGT PATH CONFIG_SITE USR
 EOF
 fi
 
-
+chown -v $USR:$USR /home/$USR/.bashrc
+chown -v $USR:$USR /home/$USR/.bash_profile
 
