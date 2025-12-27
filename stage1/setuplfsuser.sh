@@ -20,28 +20,29 @@ mkdir -pv "$LFS/tools"
 
 
 
-if ! getent group lfs >/dev/null; then
-    groupadd lfs
+if ! getent group "$USR" >/dev/null; then
+    groupadd "$USR"
     echo "Group lfs added"
 else
     echo "Group already exists"
 fi
 
 
-if ! id lfs &>/dev/null; then
-    useradd -s /bin/bash -g lfs -m -k /dev/null lfs
+if ! id "$USR" &>/dev/null; then
+    useradd -s /bin/bash -g "$USR" -m -k /dev/null "$USR"
     echo "User lfs added"
 else
     echo "User lfs already exists"
 fi
 
 
-chown -v lfs $LFS/{usr{,/*},var,etc,tools}
+chown -v "$USR" $LFS/{usr{,/*},var,etc,tools}
 case $(uname -m) in
-    x86_64) chown -v lfs "$LFS/lib64"
+    x86_64) chown -v "$USR" "$LFS/lib64"
 esac
 
-su - lfs
+
+source $SCRIPT_DIR/lfs-env.sh
 
 
 

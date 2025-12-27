@@ -33,7 +33,7 @@ FAILED=0
         echo "MD5 matched for $FILE"
         
     done
-} < packages.csv 
+} < $PARENT_DIR/packages.csv 
 
 
 if [[ $FAILED -ne 0 ]]; then
