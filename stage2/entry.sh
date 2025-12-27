@@ -22,7 +22,7 @@ if [[ "$(id -un)" != "$USR" ]]; then
     exit 1
 fi
 
-
+# pass , cleanbuild , cleanenv , package 
 source $PARENT_DIR/packageinstall.sh 0 binutils 
 
 

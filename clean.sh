@@ -1,6 +1,8 @@
-LFS="/mnt/lfs"
-USBIMG="usb.img"
-LFS_DISK=$(losetup -j "$USBIMG" | cut -d: -f1)
+export SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
+
+source $SCRIPT_DIR/config.sh
+
+LFS_DISK=$(losetup -j "$USBPATH" | cut -d: -f1)
 
 
 if [[ $EUID -ne 0 ]]; then
@@ -21,9 +23,9 @@ if [[ -n "$LFS_DISK" ]]; then
 fi
 
 
-if [[ -f "$USBIMG" ]]; then
+if [[ -f "$USBPATH" ]]; then
     echo "Found USB image removing."
-    rm -f "$USBIMG"
+    rm -f "$USBPATH"
 fi
 
 echo "Cleaned"

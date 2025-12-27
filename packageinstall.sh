@@ -5,15 +5,22 @@ if [[ -z "$LFS" ]]; then
     exit 1
 fi
 
-PACKAGE=$2
 PASS=$1
+PACKAGE=$2
 
 export SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
 BUILDIR="$SCRIPT_DIR/buildscripts"
 STAMPDIR="$LFS/sources/.stamp"
+STAMP="$STAMPDIR/$PACKAGE-$PASS.done"
 
 mkdir -pv  $STAMPDIR
 
+if [[ $CLEANENV -eq 1 ]]; then
+    echo "Cleaning ENV"
+    rm -rf $LFS/tools
+    mkdir $LFS/tools
+    rm -f $STAMP
+fi
 
 if [[ -f "$STAMPDIR/$PACKAGE-$PASS.done" ]]; then
     echo "Already compiled $PACKAGE. Skipping"
@@ -54,6 +61,6 @@ cat $SCRIPT_DIR/packages.csv | grep -i "^$PACKAGE," | grep -i -v  "\.patch," | w
     fi
 
     echo "DONE"
-    touch "$STAMPDIR/$PACKAGE-$PASS.done"
+    touch "$STAMP"
 done 
 

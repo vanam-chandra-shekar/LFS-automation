@@ -35,6 +35,7 @@ else
     echo "User lfs already exists"
 fi
 
+chown -v "$USR" "$LFS"
 
 chown -v "$USR" $LFS/{usr{,/*},var,etc,tools}
 case $(uname -m) in

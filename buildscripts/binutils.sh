@@ -1,9 +1,9 @@
 SRCDIR=$1
 BUILDIR="$SRCDIR/build"
 
-if [[ -L $BUILDIR ]]; then
+if [[ "$CLEANBUILD" -eq 1 && -d "$BUILDIR" ]]; then
     echo "Clearing Previous Builds"
-    rm -r $BUILDIR
+    rm -rf $BUILDIR
 fi
 
 mkdir -pv $BUILDIR
